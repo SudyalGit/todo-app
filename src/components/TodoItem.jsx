@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { toggleTodo } from '../features/todosSlice'
+import { deleteTodo, editTodo, toggleTodo } from '../features/todosSlice'
 
 const TodoItem = (props) => {
     const { id, text, } = props.todo
+    const [edit, setEdit] = useState(false)
+    const [newText, setNewText] = useState(text);
     const dispatch = useDispatch()
 
     return (
@@ -11,8 +13,26 @@ const TodoItem = (props) => {
             <div>
                 <input type="checkbox" onChange={() => {
                     dispatch(toggleTodo(id));
-                }}/>
-                <span>{text}</span>
+                }} />
+                {edit ?
+                    <>
+                        <input type="text" value={newText} onChange={e => setNewText(e.target.value)} name="" id="" /><span><button onClick={() => {
+                            dispatch(editTodo({newText, id}))
+                            setEdit(false)
+                        }}>save</button></span>
+                    </>
+                    :
+                    <>
+                        <span>{text}</span>
+                        <span><button onClick={() => {
+                            dispatch(deleteTodo(id));
+                        }}>delete</button></span>
+                        <span><button onClick={() => {
+                            setEdit(true)
+                        }}>edit</button></span>
+                    </>}
+
+
             </div>
         </>
     )

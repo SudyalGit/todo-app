@@ -3,16 +3,16 @@ import { useDispatch } from 'react-redux'
 import { toggleTodo } from '../features/todosSlice'
 
 const TodoItem = (props) => {
-    const { todo } = props
+    const { id, text, } = props.todo
     const dispatch = useDispatch()
 
     return (
         <>
             <div>
-                <input type="checkbox" value={'po'} onChange={() => {
-                    dispatch(toggleTodo(todo.id));
+                <input type="checkbox" onChange={() => {
+                    dispatch(toggleTodo(id));
                 }}/>
-                <span>{todo.text}</span>
+                <span>{text}</span>
             </div>
         </>
     )

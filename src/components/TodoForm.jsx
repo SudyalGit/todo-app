@@ -8,7 +8,7 @@ const TodoForm = () => {
     const dispatch = useDispatch()
     const handleAddTodo = (e) => {
         e.preventDefault()
-        console.log(text)
+        console.log(`text: ${text}`)
         dispatch(addTodo(text))
     }
 

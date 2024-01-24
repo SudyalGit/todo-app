@@ -7,15 +7,22 @@ const todosSlice = createSlice({
     initialState,
     reducers: {
         addTodo: (state, action) => {
-            state.push({
+            state.unshift({
                 id: Date.now(),
                 text: action.payload,
                 completed: false
             })
         },
+        toggleTodo: (state, action) => {
+            const todo = state.find((todo)=>todo.id === action.payload)
+
+            if(todo){
+                todo.completed = !todo.completed
+            }
+        },
     },
 })
 
-export const { addTodo } = todosSlice.actions
+export const { addTodo, toggleTodo } = todosSlice.actions
 
 export default todosSlice.reducer
